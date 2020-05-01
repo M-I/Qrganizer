@@ -1,0 +1,29 @@
+<head>
+  <title>Qrganizer</title>
+  <meta charset="utf-8">
+  <script src="https://cdn.jsdelivr.net/npm/pouchdb@7/lib/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/simulacra@2/lib/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pouchdb-find@7/lib/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/instascan-last@2/index.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tachyons@4/css/tachyons.min.css">
+</head>
+
+<body>
+    <video id="preview"></video>
+    <script type="text/javascript">
+      let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+      scanner.addListener('scan', function (content) {
+        console.log(content);
+      });
+      Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+          scanner.start(cameras[0]);
+        } else {
+          console.error('No cameras found.');
+        }
+      }).catch(function (e) {
+        console.error(e);
+      });
+    </script>
+  
+</body>
